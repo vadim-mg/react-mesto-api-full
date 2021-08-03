@@ -1,0 +1,11 @@
+.form__error {
+  display: block;
+  width: 100%;
+  padding-top: 4px;
+  color: #FF0000;
+  font-size: 12px;
+  line-height: 15px;
+  transform: translateY(-1px);
+  box-sizing: border-box;
+}
+

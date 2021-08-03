@@ -1,0 +1,13 @@
+.form__button_disabled {
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #000000;
+}
+
+.form__button_disabled:hover {
+  opacity: 1;
+  cursor: unset;
+}

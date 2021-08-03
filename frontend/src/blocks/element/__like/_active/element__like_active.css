@@ -1,0 +1,5 @@
+.element__like_active {
+  background: url(../../../../images/element/like_active.svg);
+  border: 0;
+  opacity: 1;
+}

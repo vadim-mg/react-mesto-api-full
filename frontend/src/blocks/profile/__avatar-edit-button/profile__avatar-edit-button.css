@@ -1,0 +1,23 @@
+.profile__avatar-edit-button {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 49%;
+  background: url(../../../images/avatar/pencil.svg);
+  background-color: rgba(0, 0, 0, 0.8);
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.profile__avatar-edit-button:hover {
+  opacity: 1;
+  transition: 0.3s;
+  cursor: pointer;
+}

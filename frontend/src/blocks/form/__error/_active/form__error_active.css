@@ -1,0 +1,3 @@
+input:invalid+.form__error_active {
+  border-top: 1px solid #FF0000;
+}

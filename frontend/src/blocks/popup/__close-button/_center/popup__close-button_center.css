@@ -1,0 +1,5 @@
+  @media screen and (max-width: 520px) {
+    .popup__close-button_center {
+      right: calc(100% / 2 - 11px);
+    }
+  }

@@ -1,0 +1,33 @@
+.profile__add-place-button {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 32px;
+  height: 50px;
+  color: #FFFFFF;
+  background-color: transparent;
+  border: 2px solid #FFFFFF;
+  border-radius: 2px;
+  background-image: url(../../../images/profile/add-button.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.profile__add-place-button:hover {
+  opacity: 0.6;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.profile__add-place-button:focus {
+  outline: 0;
+}
+
+@media screen and (min-width:576px) {
+  .profile__add-place-button {
+    width: 17.36vw;
+    max-width: 150px;
+    transform: translateY(10px);
+    background-size: 22px;
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,15 @@
+.header__nav-link {
+  font-family: Inter;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #A9A9A9;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.header__nav-link:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.5s;
+}

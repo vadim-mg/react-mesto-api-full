@@ -1,0 +1,11 @@
+.element {
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(254px, 1fr);
+  grid-template-rows: 1fr 80px;
+  align-items: stretch;
+  position: relative;
+}

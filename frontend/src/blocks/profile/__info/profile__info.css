@@ -1,0 +1,31 @@
+.profile__info {
+  margin: 0;
+  padding: 26px 0 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  flex-grow: 2;
+  word-break: break-word;
+  display: grid;
+  grid-template-areas: ". name button" "description description description";
+  grid-template-columns: 1fr minmax(200px, max-content) 1fr;
+  gap: 9px 4px;
+  align-items: baseline;
+}
+
+@media screen and (min-width:576px) {
+  .profile__info {
+    grid-template-areas: "name button" "description description";
+    grid-template-columns: minmax(200px, max-content) 1fr;
+    gap: 9px 19px;
+    text-align: left;
+    padding: 0 3.9vw;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .profile__info {
+    padding: 20px 30px 0;
+  }
+}

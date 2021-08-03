@@ -1,0 +1,36 @@
+.form__input {
+  border: 0;
+  border-bottom: 2px solid #CCCCCC;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #CCCCCC;
+  background-color: #000;
+}
+
+.form__input:focus {
+  outline: thin solid rgba(0, 0, 0, 0.2);
+  outline-offset: -1px;
+}
+
+.form__input::-webkit-input-placeholder {
+  color: #C4C4C4;
+}
+
+.form__input::-moz-placeholder {
+  color: #C4C4C4;
+}
+
+.form__input:-ms-input-placeholder {
+  color: #C4C4C4;
+}
+
+.form__input::-ms-input-placeholder {
+  color: #C4C4C4;
+}
+
+.form__input::placeholder {
+  color: #C4C4C4;
+}

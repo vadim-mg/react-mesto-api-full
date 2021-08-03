@@ -1,0 +1,21 @@
+.element__like {
+  width: 22px;
+  height: 19px;
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  background: url(../../../images/element/like.svg) no-repeat;
+  background-size: contain;
+  transition: 0.3s;
+  transform: translateY(-7px);
+}
+
+.element__like:hover {
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.element__like:focus {
+  outline: 0;
+}

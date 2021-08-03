@@ -1,0 +1,25 @@
+.elements {
+  display: grid;
+  grid-gap: 20px 17px;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  justify-content: center;
+  grid-auto-rows: 361px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width:320px) {
+  .elements {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
+}
+
+@media screen and (min-width:576px) {
+  .elements {
+    grid-template-columns: repeat(auto-fit, calc((100% - 18px) / 2));
+  }
+}
+@media screen and (min-width:846px) {
+  .elements {
+    grid-template-columns: repeat(auto-fit, calc((100% - 18px * 2) / 3));
+  }
+}

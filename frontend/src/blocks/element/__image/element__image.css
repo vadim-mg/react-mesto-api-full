@@ -1,0 +1,12 @@
+.element__image {
+  width: 100%;
+  display: block;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: top;
+  background-color: gray;
+}
+
+.element__image:hover {
+  cursor: pointer;
+}

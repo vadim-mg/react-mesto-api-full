@@ -1,0 +1,17 @@
+.header__place {
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  border-top: 1px solid rgba(84, 84, 84, 0.7);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 27px 30px;
+  width: calc(100% - 60px);
+}
+
+@media screen and (min-width: 768px) {
+  .header__place {
+    border: none;
+    padding: 0;
+    width: 100%;
+  }
+}

@@ -1,0 +1,5 @@
+.form__field {
+  min-height: 56px;
+  position: relative;
+  display: block;
+}

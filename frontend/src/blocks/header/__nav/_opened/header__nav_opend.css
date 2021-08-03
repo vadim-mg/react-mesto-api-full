@@ -1,0 +1,8 @@
+@media screen and (max-width:768px) {
+  .header__nav_opened {
+    display: flex;
+    height: auto;
+    padding: 40px;
+    transition: ease-out 1s;
+  }
+}

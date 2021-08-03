@@ -1,0 +1,8 @@
+.popup__container_xl {
+  max-width: 75vw;
+  max-height: 75vh;
+  width: auto;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}

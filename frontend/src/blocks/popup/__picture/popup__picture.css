@@ -1,0 +1,8 @@
+.popup__picture {
+  overflow: hidden;
+  margin: auto;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: minmax(min-content, max-content);
+  grid-template-rows: minmax(min-content, max-content) 30px;
+}
