@@ -12,14 +12,20 @@ const getCards = (req, res, next) => Card.find({})
     path: 'likes',
     model: 'User',
   })
-  .then((cards) => res.send({ data: cards }))
+  .sort({ _id: 'desc' })
+  .then((cards) => res.send(cards))
   .catch(next);
 
 const createCard = (req, res, next) => {
   const newCard = req.body;
   newCard.owner = req.user._id;
   Card.create(newCard)
-    .then((card) => res.send({ data: card }))
+    .then((card) => Card.findById(card._id)
+      .populate({
+        path: 'owner',
+        model: 'User',
+      }))
+    .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new Error400('Не корректные входные данные '));
@@ -35,7 +41,7 @@ const deleteCard = (req, res, next) => Card.findById(req.params.cardId)
       return Promise.reject(new Error('noAccessRights'));
     }
     return Card.findByIdAndDelete(card._id)
-      .then((c) => res.send({ data: c }));
+      .then((c) => res.send(c));
   })
   .catch((err) => {
     if (err.message === 'NotFound') {
@@ -66,7 +72,16 @@ const likeCard = (req, res, next) => {
     updateObject,
     { new: true })
     .orFail(() => new Error('NotFound'))
-    .then((card) => res.send({ data: card }))
+    .then((card) => Card.findById(card._id)
+      .populate({
+        path: 'owner',
+        model: 'User',
+      })
+      .populate({
+        path: 'likes',
+        model: 'User',
+      }))
+    .then((card) => res.send(card))
     .catch((err) => {
       if (err.message === 'NotFound') {
         return next(new Error404('Картока с указанным _id не найдена'));

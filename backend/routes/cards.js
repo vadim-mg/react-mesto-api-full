@@ -8,7 +8,7 @@ const {
 router.get('/', getCards);
 router.post('/', celebrate(cardSchema.card), createCard);
 router.delete('/:cardId', celebrate(cardSchema.id), deleteCard);
-router.put('/:cardId/likes', celebrate(cardSchema.id), likeCard);
-router.delete('/:cardId/likes', celebrate(cardSchema.id), likeCard);
+router.put('/likes/:cardId', celebrate(cardSchema.id), likeCard);
+router.delete('/likes/:cardId', celebrate(cardSchema.id), likeCard);
 
 module.exports = router;

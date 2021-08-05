@@ -8,8 +8,9 @@ const { logout, login, createUser } = require('../controllers/users');
 const Error404 = require('../errors/error-404');
 
 // маршруты для авторизации и регистрации
-authRoutes.post('/signin', logout, celebrate(userSchema.authData), login);
-authRoutes.post('/signup', logout, celebrate(userSchema.authData), createUser);
+authRoutes.post('/signout', logout);
+authRoutes.post('/signin', celebrate(userSchema.authData), login);
+authRoutes.post('/signup', celebrate(userSchema.authData), createUser);
 
 // все остальные маршруты для авторизованных пользователей
 routes.use('/users', require('./users'));

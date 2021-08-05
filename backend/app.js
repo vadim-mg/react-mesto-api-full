@@ -7,10 +7,13 @@ const { json, urlencoded } = require('body-parser');
 const cookieParser = require('cookie-parser');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { authRoutes, routes } = require('./routes/routes');
+const { cors } = require('./middlewares/cors');
 
 const app = express();
 const { PORT = 3000 } = process.env;
+app.use(cors);
 
 app.use(helmet());
 app.disable('x-powered-by');
@@ -26,10 +29,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
+app.use(requestLogger);
 app.use('/', authRoutes); // обработчики на роуты /signin и /signup
 app.use(auth);
 app.use('/', routes);
 
+app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
