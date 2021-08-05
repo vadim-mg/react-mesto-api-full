@@ -11,10 +11,10 @@ module.exports = (req, res, next) => {
 
   const payload = jwt.verify(token, config.secretKey);
 
-  return User.findById(payload._id)
+  return User.findById(payload._id, 'name email avatar about')
     .then((user) => {
       if (user) {
-        req.user = payload;
+        req.user = user;
         return next();
       }
       res.clearCookie('jwt');
