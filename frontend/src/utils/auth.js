@@ -7,6 +7,7 @@ class Auth {
   signUp = (email, password) => fetch(`${this._baseUrl}/signup`,
     {
       method: 'POST',
+      credentials: 'include',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
     })
@@ -19,43 +20,42 @@ class Auth {
   signIn = (email, password) => fetch(`${this._baseUrl}/signin`,
     {
       method: 'POST',
+      credentials: 'include',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
     })
     .then(response => response.ok
       ? response.json()
-      : response.text().then(text => Promise.reject(text))
-    )
-    .then(data => {
-      if (data.token) {
-        localStorage.setItem('token', data.token)
-        return data
-      } else
-        return
+      : response.text().then(text => Promise.reject(text)))
+
+
+  signOut = () => fetch(`${this._baseUrl}/signout`,
+    {
+      method: 'POST',
+      credentials: 'include',
+      headers: { "Content-Type": "application/json" },
     })
+    .then(response => response.ok
+      ? response.json()
+      : response.text().then(text => Promise.reject(text)))
 
 
-  signOut = () => {
-    localStorage.removeItem('token')
-  }
 
-
-  checkToken = () => localStorage.getItem('token')
-    ? fetch(`${this._baseUrl}/users/me`,
-      {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      .then(response => response.ok
-        ? response.json()
-        : response.text().then(text => Promise.reject(text))
-      )
-      .catch(err => err)
-    : Promise.reject(err => 'Токен не найден')
+  // checkToken = () =>
+  //   fetch(`${this._baseUrl}/users/me`,
+  //     {
+  //       method: 'GET',
+  //       credentials: 'include',
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       }
+  //     })
+  //     .then(response => response.ok
+  //       ? response.json()
+  //       : response.text().then(text => Promise.reject(text))
+  //     )
+  //     .catch(err => err)
 }
 
-const auth = new Auth('https://auth.nomoreparties.co')
+const auth = new Auth('http://localhost:3000')
 export default auth

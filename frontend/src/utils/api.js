@@ -1,7 +1,6 @@
 class Api {
 
-  constructor({ token, baseUrl }) {
-    this.token = token
+  constructor({ baseUrl }) {
     this.baseUrl = baseUrl
   }
 
@@ -17,8 +16,8 @@ class Api {
     this.baseUrl + adress,
     {
       method: method1,
+      credentials: 'include',
       headers: {
-        authorization: this.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(rest)
@@ -32,7 +31,7 @@ class Api {
   loadUserInfo = () => this._fetch(
     'users/me',
     'Ошибка загрузки профиля'
-  )
+  ).then(result => Promise.resolve(result))
 
   setUserInfo = ({ name, about }) => this._fetch(
     'users/me',
@@ -44,7 +43,7 @@ class Api {
   getCardList = () => this._fetch(
     'cards',
     'Ошибка загрузки карточек'
-  )
+  ).then(result => Promise.resolve(result))
 
   saveCard = ({ link, name }) => this._fetch(
     'cards',
@@ -81,8 +80,7 @@ class Api {
 
 
 const api = new Api({
-  token: 'd119b3a4-6901-4a18-8871-5024c655ab94',
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-23/'
+  baseUrl: 'http://localhost:3000/'
 })
 
 export default api

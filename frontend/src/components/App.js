@@ -31,35 +31,27 @@ function App() {
   const [infoTooltip, setInfoTooltip] = useState(null)
 
   useEffect(() => {
-    auth.checkToken()
+    return api.loadUserInfo()
       .then(result => {
         if (result) {
-          setUserEmail(result.data.email)
+          setCurrentUser(result)
           history.push('/')
         }
       })
       .catch(err => setUserEmail(''))
-  }, [history])
+  }, [userEmail, history])
 
   useEffect(() => {
-    if (userEmail !== '') {
-      api.loadUserInfo()
-        .then(value => setCurrentUser(value))
-        .catch(err => {
-          console.error(err)
-          setCurrentUser({
-            name: 'Профиль не загружен!',
-            about: 'Что-то пошло не так...'
-          })
-        })
-      api.getCardList()
+    if (currentUser && currentUser.email !== '') {
+      setUserEmail(currentUser.email)
+      return api.getCardList()
         .then(result => setCards(result))
         .catch(err => console.error(err))
     } else {
       setCurrentUser(null)
       setCards([])
     }
-  }, [userEmail])
+  }, [currentUser])
 
 
   const handleAvatarEditButtonClick = () => setIsEditAvatarPopupOpen(true)
@@ -111,8 +103,8 @@ function App() {
 
   const handleCardLike = (card, isLikedByCurrentUser) =>
     api.changeLikeCardStatus(card._id, !isLikedByCurrentUser)
-      .then(createdCard => setCards(cards => cards.map(i =>
-        i._id === card._id ? createdCard : i)))
+      .then(changedCard => setCards(cards => cards.map(i =>
+        i._id === card._id ? changedCard : i)))
       .catch(err => console.error(err));
 
 
@@ -164,6 +156,8 @@ function App() {
   const handleSignOut = () => {
     auth.signOut()
     setUserEmail('')
+    setCurrentUser(null)
+    setCards([])
     history.push('/sign-in')
   }
 

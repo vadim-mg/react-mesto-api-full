@@ -20,7 +20,7 @@ function UniversalForm(props) {
       .then(result => {
         if (typeof result === "function") result()
       })
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
       .finally(result => {
         setLoading(false)
       })
