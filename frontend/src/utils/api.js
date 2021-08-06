@@ -80,7 +80,7 @@ class Api {
 
 
 const api = new Api({
-  baseUrl: 'http://localhost:3000/'
+  baseUrl: `${ window.location.protocol }${ process.env.REACT_APP_API_URL || '//localhost:3000/' }`
 })
 
 export default api
