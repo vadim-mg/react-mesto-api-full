@@ -1,7 +1,8 @@
+import apiUrl from "./config"
 class Api {
 
-  constructor({ baseUrl }) {
-    this.baseUrl = baseUrl
+  constructor(baseUrl) {
+    this._baseUrl = baseUrl
   }
 
   /**
@@ -13,7 +14,7 @@ class Api {
    * @returns
    */
   _fetch = (adress, error = 'какая-то ошибка', method1 = 'GET', rest) => fetch(
-    this.baseUrl + adress,
+    `${this._baseUrl}/${adress}`,
     {
       method: method1,
       credentials: 'include',
@@ -79,9 +80,7 @@ class Api {
 }
 
 
-const api = new Api({
-  baseUrl: `${ window.location.protocol }${ process.env.REACT_APP_API_URL || '//localhost:3000/' }`
-})
+const api = new Api(apiUrl)
 
 export default api
 
