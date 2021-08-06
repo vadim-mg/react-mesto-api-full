@@ -7,6 +7,14 @@ const userSchema = require('../schemas/userShema');
 const { logout, login, createUser } = require('../controllers/users');
 const Error404 = require('../errors/error-404');
 
+/* Краш-тест */
+authRoutes.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+/* Краш-тест */
+
 // маршруты для авторизации и регистрации
 authRoutes.post('/signout', logout);
 authRoutes.post('/signin', celebrate(userSchema.authData), login);
