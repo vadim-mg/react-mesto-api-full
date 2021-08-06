@@ -39,22 +39,6 @@ class Auth {
       ? response.json()
       : response.text().then(text => Promise.reject(text)))
 
-
-
-  // checkToken = () =>
-  //   fetch(`${this._baseUrl}/users/me`,
-  //     {
-  //       method: 'GET',
-  //       credentials: 'include',
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       }
-  //     })
-  //     .then(response => response.ok
-  //       ? response.json()
-  //       : response.text().then(text => Promise.reject(text))
-  //     )
-  //     .catch(err => err)
 }
 
 const auth = new Auth('http://localhost:3000')
