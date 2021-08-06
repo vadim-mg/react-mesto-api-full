@@ -93,7 +93,7 @@ const login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: 'Вы авторизовались' });
+        .send({ message: 'Вы авторизовались!!' });
     })
     .catch(next);
 };
