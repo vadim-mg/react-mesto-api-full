@@ -9,16 +9,20 @@ module.exports = (req, res, next) => {
     return next(new Error401('Необходима авторизация!'));
   }
 
-  const payload = jwt.verify(token, config.secretKey);
-
-  return User.findById(payload._id, 'name email avatar about')
-    .then((user) => {
-      if (user) {
-        req.user = user;
-        return next();
-      }
+  return jwt.verify(token, config.secretKey, (err, decoded) => {
+    if (err) {
       res.clearCookie('jwt');
-      throw new Error401('Этот пользователь больше не существует');
-    })
-    .catch(next);
+      return next(new Error401('Необходима авторизация! (не верный токен)'));
+    }
+    return User.findById(decoded._id, 'name email avatar about')
+      .then((user) => {
+        if (user) {
+          req.user = user;
+          return next();
+        }
+        res.clearCookie('jwt');
+        throw new Error401('Этот пользователь больше не существует');
+      })
+      .catch(next);
+  });
 };

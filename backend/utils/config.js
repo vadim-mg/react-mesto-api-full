@@ -1,12 +1,9 @@
-const {
-  NODE_ENV, JWT_SECRET, ALLOWED_CORS, PORT = 3000,
-} = process.env;
+const DEVELOPMENT_ALLOWED_CORS = "['http://localhost:3001', 'https://localhost:3001']";
+const DEVELOPMENT_SECRET = 'dev-secret';
+
 module.exports = {
-  secretKey: NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-  allowedCors: NODE_ENV === 'production' ? ALLOWED_CORS : [
-    'http://localhost:3001',
-    'https://localhost:3001',
-  ],
-  port: PORT,
+  secretKey: process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : DEVELOPMENT_SECRET,
+  allowedCors: process.env.NODE_ENV === 'production' ? process.env.ALLOWED_CORS : DEVELOPMENT_ALLOWED_CORS,
+  port: 3000,
   dataBase: 'mongodb://localhost:27017/mestodb',
 };

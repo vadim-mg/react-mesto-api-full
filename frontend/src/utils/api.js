@@ -25,7 +25,10 @@ class Api {
     })
     .then(res => res.ok
       ? res.json()
-      : Promise.reject(`[${error}] Ошибка запроса: ${res.url} ${res.status}`)
+      : Promise.reject({
+        message: `[${error}] Ошибка запроса: ${res.url} ${res.status}`,
+        status: res.status,
+      })
     )
 
 

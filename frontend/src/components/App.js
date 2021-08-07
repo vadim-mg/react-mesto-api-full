@@ -35,23 +35,25 @@ function App() {
       .then(result => {
         if (result) {
           setCurrentUser(result)
-          history.push('/')
+          setUserEmail(result.email)
+          return Promise.resolve('Profile Loaded')
         }
       })
-      .catch(err => setUserEmail(''))
-  }, [userEmail, history])
-
-  useEffect(() => {
-    if (currentUser && currentUser.email !== '') {
-      setUserEmail(currentUser.email)
-      return api.getCardList()
-        .then(result => setCards(result))
-        .catch(err => console.error(err))
-    } else {
-      setCurrentUser(null)
-      setCards([])
-    }
-  }, [currentUser])
+      .then(r => {
+        return api.getCardList()
+          .then(result => {
+            setCards(result)
+            history.push('/')
+          })
+          .catch(err => console.error(err))
+      })
+      .catch(err => {
+        setUserEmail('')
+        setCurrentUser(null)
+        setCards([])
+        history.push('/sign-in')
+      })
+  }, [history, userEmail])
 
 
   const handleAvatarEditButtonClick = () => setIsEditAvatarPopupOpen(true)
@@ -60,6 +62,17 @@ function App() {
   const handleCardClick = card => setSelectedCard(card)
   const handleDeleteCardClick = cardId => setIsShouldBeRemovedCardID(cardId)
 
+  // Если ошибка автризации (401), то выполняем редирект на страницук авторизации
+  const errorHandlerWithRedirect = err => {
+    if (err.status === 401) {
+      closeAllPopups()
+      // history.push('/sign-in')
+      handleSignOut()
+      showErrorInfoTooltip(JSON.stringify({ message: "Необходима авторизация!" }))
+    }
+    return Promise.reject(err)
+    // есть catch в самом конце запроса в universalForm
+  }
 
   const handleUpdateUser = (...userData) =>
     api.setUserInfo(...userData)
@@ -68,7 +81,7 @@ function App() {
         closeAllPopups()
       })
       .then(result => Promise.resolve('Profile saved'))
-  // есть catch в самом конце запроса в universalForm
+      .catch(err => errorHandlerWithRedirect(err))
 
 
   const handleUpdateAvatar = avatar =>
@@ -78,7 +91,7 @@ function App() {
         closeAllPopups()
       })
       .then(result => Promise.resolve('Avatar saved'))
-  // есть catch в самом конце запроса в universalForm
+      .catch(err => errorHandlerWithRedirect(err))
 
 
   const handleAddPlace = place =>
@@ -88,8 +101,7 @@ function App() {
         closeAllPopups()
       })
       .then(result => Promise.resolve('Card added'))
-  // есть catch в самом конце запроса в universalForm
-
+      .catch(err => errorHandlerWithRedirect(err))
 
 
   const closeAllPopups = () => {
@@ -105,7 +117,7 @@ function App() {
     api.changeLikeCardStatus(card._id, !isLikedByCurrentUser)
       .then(changedCard => setCards(cards => cards.map(i =>
         i._id === card._id ? changedCard : i)))
-      .catch(err => console.error(err));
+      .catch(err => errorHandlerWithRedirect(err))
 
 
   const handleCardDelete = card =>
@@ -115,7 +127,7 @@ function App() {
         closeAllPopups()
       })
       .then(result => Promise.resolve('Card deleted'))
-  // есть catch в самом конце запроса в universalForm
+      .catch(err => errorHandlerWithRedirect(err))
 
 
   const showErrorInfoTooltip = err => {
@@ -155,10 +167,12 @@ function App() {
 
   const handleSignOut = () => {
     auth.signOut()
-    setUserEmail('')
-    setCurrentUser(null)
-    setCards([])
-    history.push('/sign-in')
+      .then(result => {
+        setUserEmail('')
+        setCurrentUser(null)
+        setCards([])
+        history.push('/sign-in')
+      })
   }
 
 
